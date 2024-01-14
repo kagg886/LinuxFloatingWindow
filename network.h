@@ -16,3 +16,5 @@ struct NetworkSpeed {
 
 
 NetworkSpeed getTotalNetworkSpeed();
+int getPowerPercent();
+long double getMemoryUsage();

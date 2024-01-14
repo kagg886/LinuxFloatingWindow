@@ -6,6 +6,9 @@ MainWindow::MainWindow(QWidget *parent)
     connect(this, &MainWindow::updateLabel, this, &MainWindow::handleUpdateLabel);
     setWindowFlags(Qt::ToolTip);
 
+    label = new QLabel("", this);
+    label->resize(200, 100);
+    label->show();
 }
 
 MainWindow::~MainWindow() {
@@ -32,17 +35,28 @@ void MainWindow::mouseReleaseEvent(QMouseEvent *event) {
 }
 
 
-void MainWindow::handleUpdateLabel(const std::string& id, const QString& text) {
-    QLabel* label = map[id];
-    if (label == nullptr) {
-        label = new QLabel(this);
-        label->show();
-        map[id] = label;
+void MainWindow::handleUpdateLabel(const std::string &id, const QString &text) {
+    map[id] = text;
+
+    QString buf;
+
+    for (const auto &item: map) {
+//        buf.append("\n");
+        buf.append(item.second);
     }
-
-    QFontMetrics m(label->font());
-
-    label->resize(this->width(),m.height() * text.split("\n").size());
-    label->setText(text);
+    label->setText(buf);
     label->update();
+
+//    QLabel* label = map[id];
+//    if (label == nullptr) {
+//        label = new QLabel(this);
+//        label->show();
+//        map[id] = label;
+//    }
+//
+//    QFontMetrics m(label->font());
+//
+//    label->resize(this->width(),m.height() * text.split("\n").size());
+//    label->setText(text);
+//    label->update();
 }

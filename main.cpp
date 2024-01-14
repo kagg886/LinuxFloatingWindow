@@ -16,6 +16,8 @@ int main(int argc, char *argv[]) {
 
     looper looper([&w]() {
         NetworkSpeed s = getTotalNetworkSpeed();
+
+
         QString p;
         long double kb = 1024.0;
 
@@ -27,20 +29,26 @@ int main(int argc, char *argv[]) {
             offset++;
         }
 
-        char a[50]= "";
-        sprintf(a,"%.2Lf",speed);
-        p.append("Upload: ").append(string(a)).append(str[offset]);
-
+        char a[50] = "";
+        sprintf(a, "%.2Lf", speed);
+        p.append("Upload: ").append(a).append(str[offset]);
         offset = 0;
         speed = s.downloadSpeed;
         while (speed / kb > 1) {
             speed /= kb;
             offset++;
         }
+        sprintf(a, "%.2Lf", speed);
+        p.append("\nDownload: ").append(a).append(str[offset]);
 
-        sprintf(a,"%.2Lf",speed);
-        p.append("\nDownload: ").append(string(a)).append(str[offset]);
-        w.updateLabel("network",p);
+        int pre = getPowerPercent();
+        p.append("\nPower: ").append(std::to_string(100 - pre)).append("%");
+
+        long double pre1 = getMemoryUsage();
+        sprintf(a, "%.2Lf", pre1);
+        p.append("\nUsage: ").append(a).append("%");
+
+        w.updateLabel("cool", p);
     });
 
     int result = QApplication::exec();

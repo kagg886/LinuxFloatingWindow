@@ -27,7 +27,8 @@ protected:
 private:
     bool dragging;
     QPoint dragPosition;
-    std::map<std::string,QLabel*> map;
+    std::map<std::string,QString> map;
+    QLabel* label;
 };
 
 
