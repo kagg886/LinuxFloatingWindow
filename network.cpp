@@ -65,7 +65,7 @@ int getPowerPercent() {
     std::filesystem::path filePath;
     while ((entry = readdir(dir)) != nullptr) {
         if (entry->d_name[0] != '.') { // 忽略隐藏文件和上级目录链接
-            filePath = power + std::string(entry->d_name) + "/present";
+            filePath = power + std::string(entry->d_name) + "/capacity";
             if (std::filesystem::exists(filePath)) {
                 break;
             }

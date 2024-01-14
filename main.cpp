@@ -42,7 +42,7 @@ int main(int argc, char *argv[]) {
         p.append("\nDownload: ").append(a).append(str[offset]);
 
         int pre = getPowerPercent();
-        p.append("\nPower: ").append(std::to_string(100 - pre)).append("%");
+        p.append("\nPower: ").append(std::to_string(pre)).append("%");
 
         long double pre1 = getMemoryUsage();
         sprintf(a, "%.2Lf", pre1);

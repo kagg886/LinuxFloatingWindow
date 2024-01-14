@@ -1,2 +1,4 @@
 # 项目排除路径
 /cmake-build-debug/
+/myapp-1.0.deb
+/myapp-1.0/
