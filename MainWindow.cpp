@@ -1,5 +1,6 @@
 #include "MainWindow.h"
 #include <QPushButton>
+#include "Ini.h"
 
 MainWindow::MainWindow(QWidget *parent)
         : QMainWindow(parent), dragging(false) {
@@ -8,6 +9,13 @@ MainWindow::MainWindow(QWidget *parent)
 
     label = new QLabel("", this);
     label->resize(200, 100);
+
+    Ini i("conf.ini");
+    int x = i.readInt("pos", "x", 0);
+    int y = i.readInt("pos", "y", 0);
+
+    move(x, y);
+
     label->show();
 }
 
@@ -31,7 +39,12 @@ void MainWindow::mouseMoveEvent(QMouseEvent *event) {
 
 void MainWindow::mouseReleaseEvent(QMouseEvent *event) {
     dragging = false;
+    std::cout << event->pos().x() << "," << event->pos().y() << std::endl;
+    Ini i("conf.ini");
+    i.writeInt("pos", "x", static_cast<int>(event->globalPosition().x()) - this->width());
+    i.writeInt("pos", "y", static_cast<int>(event->globalPosition().y()) - this->height());
     event->accept();
+
 }
 
 
@@ -41,22 +54,9 @@ void MainWindow::handleUpdateLabel(const std::string &id, const QString &text) {
     QString buf;
 
     for (const auto &item: map) {
-//        buf.append("\n");
         buf.append(item.second);
     }
     label->setText(buf);
     label->update();
 
-//    QLabel* label = map[id];
-//    if (label == nullptr) {
-//        label = new QLabel(this);
-//        label->show();
-//        map[id] = label;
-//    }
-//
-//    QFontMetrics m(label->font());
-//
-//    label->resize(this->width(),m.height() * text.split("\n").size());
-//    label->setText(text);
-//    label->update();
 }

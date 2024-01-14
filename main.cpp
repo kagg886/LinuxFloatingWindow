@@ -5,6 +5,7 @@
 #include "MainWindow.h"
 #include "network.h"
 #include "looper.h"
+#include "Ini.h"
 
 using namespace std;
 

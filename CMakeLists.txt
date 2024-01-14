@@ -21,6 +21,8 @@ add_executable(untitled main.cpp
         network.h
         looper.cpp
         looper.h
+        Ini.cpp
+        Ini.h
 )
 target_link_libraries(untitled
         Qt::Core
