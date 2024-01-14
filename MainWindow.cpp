@@ -2,18 +2,31 @@
 #include <QPushButton>
 #include "Ini.h"
 
+#define wWidth 150
+#define wHeight 150
+
 MainWindow::MainWindow(QWidget *parent)
         : QMainWindow(parent), dragging(false) {
     connect(this, &MainWindow::updateLabel, this, &MainWindow::handleUpdateLabel);
     setWindowFlags(Qt::ToolTip);
+//    setAttribute(Qt::WA_TranslucentBackground);
 
     label = new QLabel("", this);
-    label->resize(200, 100);
+    label->resize(wWidth, wHeight);
+
+//    this->setStyleSheet("QMainWindow {background-image:url(:/image/resources/bg.png)}");
+
+    QPalette qp = this->palette();
+    QImage ai(":/image/resources/bg.png");
+    ai = ai.scaled(wWidth, wHeight, Qt::IgnoreAspectRatio);
+    qp.setBrush(QPalette::Window, QBrush(ai));
+    this->setPalette(qp);
 
     Ini i("conf.ini");
     int x = i.readInt("pos", "x", 0);
     int y = i.readInt("pos", "y", 0);
 
+    resize(wWidth, wHeight);
     move(x, y);
 
     label->show();

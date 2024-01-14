@@ -14,6 +14,8 @@ find_package(Qt6 COMPONENTS
         Widgets
         REQUIRED)
 
+qt_add_resources(res.qrc)
+
 add_executable(untitled main.cpp
         MainWindow.cpp
         MainWindow.h
@@ -23,6 +25,7 @@ add_executable(untitled main.cpp
         looper.h
         Ini.cpp
         Ini.h
+        res.qrc
 )
 target_link_libraries(untitled
         Qt::Core
